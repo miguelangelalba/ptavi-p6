@@ -10,8 +10,8 @@ import sys
 # Cliente UDP simple.
 def msg_constructor(sip_type,login):
 # Dirección IP del servidor.
-    msg_to_send = sip_type + " sip:" + login + " SIP/2.0" + "\r\n"
-    return msg_to_send
+    msg = sip_type + " sip:" + login + " SIP/2.0" + "\r\n"
+    return msg
 
 def comunication (server,port,sip_type,login):
     # Contenido que vamos a enviar
