@@ -25,8 +25,9 @@ def comunication (server,port,sip_type,login):
         print("Enviando: " + LINE)
         msg_to_send = msg_constructor(sip_type,login)
         my_socket.send(bytes(msg_to_send, 'utf-8') + b'\r\n')
-        data = my_socket.recv(1024)
 
+        data = my_socket.recv(1024)
+        
         print('Recibido -- ', data.decode('utf-8'))
         print("Terminando socket...")
 
