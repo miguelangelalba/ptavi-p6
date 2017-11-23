@@ -9,40 +9,37 @@ import sys
 import os
 
 answer_code = {
-    "Trying":b"SIP/2.0 100 Trying\r\n",
-    "Ringing":b"SIP/2.0 180 Ringing\r\n",
-    "Ok":b"SIP/2.0 200 OK\r\n",
-    "Bad Request":b"SIP/2.0 400 Bad Request\r\n",
-    "Method Not Allowed":b"SIP/2.0 405 Method Not Allowed\r\n"}
+    "Trying":b"SIP/2.0 100 Trying\r\n\r\n",
+    "Ringing":b"SIP/2.0 180 Ringing\r\n\r\n",
+    "Ok":b"SIP/2.0 200 OK\r\n\r\n",
+    "Bad Request":b"SIP/2.0 400 Bad Request\r\n\r\n",
+    "Method Not Allowed":b"SIP/2.0 405 Method Not Allowed\r\n\r\n"
+    }
 
 SIP_type = {
     "INVITE":answer_code["Trying"] + answer_code["Ringing"] +
             answer_code["Ok"],
     "BYE":answer_code["Ok"],
     "ACK":answer_code["Ok"]
-}
+    }
 
 class SIPServer(socketserver.DatagramRequestHandler):
     """
     Echo server class
     """
     def handle(self):
-        # Escribe dirección y puerto del cliente (de tupla client_address)
-        self.wfile.write(b"Hemos recibido tu peticion")
-        #while 1:
-        # Leyendo línea a línea lo que nos envía el cliente
         line = self.rfile.read().decode('utf-8').split(" ")
         if not line[0] in SIP_type:
             self.wfile.write(answer_code["Method Not Allowed"])
         elif line[0] == "ACK":
             aEjecutar = "./mp32rtp -i 127.0.0.1 -p 23032 < " + AUDIO
-            print("Vamos a ejecutar", aEjecutar)
+            print("ACK recivido ejecutando:", aEjecutar)
             os.system(aEjecutar)
-        
+
         else:
             self.wfile.write(SIP_type[line[0]])
             print("El cliente nos manda " + line[0])
-            print (audio)
+
 
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
