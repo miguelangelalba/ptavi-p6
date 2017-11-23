@@ -45,8 +45,18 @@ if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
     if len(sys.argv) != 4:
         sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
-    port = int(sys.argv[2])
-    AUDIO = sys.argv[3]
-    serv = socketserver.UDPServer((sys.argv[1], port), SIPServer)
+    try:
+        port = int(sys.argv[2])
+        AUDIO = sys.argv[3]
+        serv = socketserver.UDPServer((sys.argv[1], port), SIPServer)
+    except Exception:
+        sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
+    if not os.path.exists(AUDIO):
+        sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
+
     print("Listening...")
-    serv.serve_forever()
+
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        print ("Finalizando Servidor")
