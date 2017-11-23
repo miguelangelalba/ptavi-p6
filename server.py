@@ -33,7 +33,7 @@ class SIPServer(socketserver.DatagramRequestHandler):
             self.wfile.write(answer_code["Method Not Allowed"])
         elif line[0] == "ACK":
             aEjecutar = "./mp32rtp -i 127.0.0.1 -p 23032 < " + AUDIO
-            print("ACK recivido ejecutando:", aEjecutar)
+            print("ACK recibido ejecutando:", aEjecutar)
             os.system(aEjecutar)
 
         else:

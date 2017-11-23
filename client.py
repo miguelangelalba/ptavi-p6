@@ -8,8 +8,8 @@ import socket
 import sys
 from server import SIP_type, answer_code
 
-def msg_constructor(sip_type,login):
-    msg = sip_type + " sip:" + login + " SIP/2.0" + "\r\n"
+def msg_constructor(sip_type,login,ip):
+    msg = sip_type + " sip:" + login +"@" + ip + " SIP/2.0" + "\r\n"
     return msg
 
 def comunication (server,port,sip_type,login):
@@ -20,7 +20,7 @@ def comunication (server,port,sip_type,login):
 
         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         my_socket.connect((server, port))
-        msg_to_send = msg_constructor(sip_type,login)
+        msg_to_send = msg_constructor(sip_type,login,server)
         my_socket.send(bytes(msg_to_send, 'utf-8') + b'\r\n')
         print("Enviando: " + msg_to_send)
         data = my_socket.recv(1024)
@@ -28,7 +28,7 @@ def comunication (server,port,sip_type,login):
 
         if data == SIP_type["INVITE"]:
             #Enviamos msg ack
-            msg_to_send = msg_constructor("ACK",login)
+            msg_to_send = msg_constructor("ACK",login,server)
             print("Enviando: " + msg_to_send)
             my_socket.send(bytes(msg_to_send, 'utf-8') + b'\r\n')
             data = my_socket.recv(1024)
