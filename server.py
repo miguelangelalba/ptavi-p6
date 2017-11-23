@@ -34,8 +34,11 @@ class SIPServer(socketserver.DatagramRequestHandler):
         line = self.rfile.read().decode('utf-8').split(" ")
         if not line[0] in SIP_type:
             self.wfile.write(answer_code["Method Not Allowed"])
-        #elif:
-        #    pass
+        elif line[0] == "ACK":
+            aEjecutar = "./mp32rtp -i 127.0.0.1 -p 23032 < " + AUDIO
+            print("Vamos a ejecutar", aEjecutar)
+            os.system(aEjecutar)
+        
         else:
             self.wfile.write(SIP_type[line[0]])
             print("El cliente nos manda " + line[0])
