@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Clase (y programa principal) para un servidor de eco en UDP simple
-"""
+"""Servidor de eco en UDP simple."""
 
 import socketserver
 import sys
@@ -26,10 +24,10 @@ SIP_type = {
 
 
 class SIPServer(socketserver.DatagramRequestHandler):
-    """Echo server class"""
+    """Echo server class."""
 
     def handle(self):
-        """Handle method of the server class.
+        u"""Handle method of the server class.
 
         (All requests will be handled by this method).
         Compruebo los métodos y mando las respuestas asociadas a cada método

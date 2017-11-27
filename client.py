@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Programa cliente que abre un socket a un servidor
-"""
+"""Programa cliente que abre un socket a un servidor."""
 
 import socket
 import sys
@@ -10,13 +8,16 @@ from server import SIP_type, answer_code
 
 
 def msg_constructor(sip_type, login, ip):
+    u"""Función constructora de mensajes."""
     msg = sip_type + " sip:" + login + "@" + ip + " SIP/2.0" + "\r\n"
     return msg
 
 
 def comunication(server, port, sip_type, login):
-    # Contenido que vamos a enviar
-    # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
+    u"""Comunicación cliente/servidor.
+
+    Creamos el socket, lo configuramos y lo atamos a un servidor/puerto.
+    """
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
 
         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
