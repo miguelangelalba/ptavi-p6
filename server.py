@@ -26,10 +26,15 @@ SIP_type = {
 
 
 class SIPServer(socketserver.DatagramRequestHandler):
-    """
-    Echo server class
-    """
+    """Echo server class"""
+
     def handle(self):
+        """Handle method of the server class.
+
+        (All requests will be handled by this method).
+        Compruebo los métodos y mando las respuestas asociadas a cada método
+        con los diccionarios definidos arriba.
+        """
         line = self.rfile.read().decode('utf-8').split(" ")
         if not line[0] in SIP_type:
             self.wfile.write(answer_code["Method Not Allowed"])
@@ -45,7 +50,6 @@ class SIPServer(socketserver.DatagramRequestHandler):
 
 
 if __name__ == "__main__":
-    # Creamos servidor de eco y escuchamos
     if len(sys.argv) != 4:
         sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
     try:
