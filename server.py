@@ -38,7 +38,8 @@ class SIPServer(socketserver.DatagramRequestHandler):
 
         else:
             self.wfile.write(SIP_type[line[0]])
-            print("El cliente nos manda " + line[0])
+
+        print("El cliente nos manda " + line[0])
 
 
 if __name__ == "__main__":

@@ -41,9 +41,15 @@ if __name__ == '__main__':
 
     if len(sys.argv) != 3:
         sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
+    try:
+        sip_type = sys.argv[1].upper()
+        login = sys.argv[2][:sys.argv[2].find("@")]
+        server = sys.argv[2][sys.argv[2].find("@") + 1:sys.argv[2].find(":")]
+        port = int(sys.argv[2][sys.argv[2].find(":") + 1:])
+    except Exception:
+        sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
 
-    sip_type = sys.argv[1].upper()
-    login = sys.argv[2][:sys.argv[2].find("@")]
-    server = sys.argv[2][sys.argv[2].find("@") + 1:sys.argv[2].find(":")]
-    port = int(sys.argv[2][sys.argv[2].find(":") + 1:])
-    comunication(server,port,sip_type,login)
+    try:
+        comunication(server,port,sip_type,login)
+    except socket.gaierror:
+        sys.exit("Usage: python3 client.py method receiver@IP:SIPport")
